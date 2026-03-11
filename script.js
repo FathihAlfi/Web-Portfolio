@@ -1,91 +1,125 @@
-// Smooth Scrolling untuk navigasi
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
+document.addEventListener('DOMContentLoaded', () => {
+    // Pastikan urutan ID sesuai dengan struktur HTML Anda
+    const sectionsArr = ['hero', 'about', 'projects', 'tech', 'certification', 'contact'];
+    const navLinks = document.querySelectorAll('.nav-link');
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    const stickyBtn = document.getElementById('stickyArrowBtn');
+
+    // 1. Mobile Menu Toggle
+    menuToggle?.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navMenu.classList.toggle('show');
+    });
+
+    // 2. Smooth Scroll & Manual Highlight
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Offset 70px untuk navbar fixed
+                window.scrollTo({ 
+                    top: targetElement.offsetTop - 70, 
+                    behavior: 'smooth' 
+                });
+
+                // Paksa aktifkan menu saat diklik (menghindari delay observer)
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+
+            // Tutup menu mobile
+            menuToggle?.classList.remove('active');
+            navMenu?.classList.remove('show');
         });
     });
-});
 
-// Efek Fade In saat scroll ke konten berikutnya
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
+    // 3. Scroll Spy (Intersection Observer)
+    const spyOptions = { 
+        threshold: [0.2, 0.5], // Deteksi ganda untuk akurasi
+        rootMargin: "-20% 0px -20% 0px" // Fokus pada area tengah layar
+    };
 
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in-element');
-            observer.unobserve(entry.target);
+    const spyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                });
+            }
+        });
+    }, spyOptions);
+
+    // Memantau Section DAN Footer (agar Contact terdeteksi)
+    document.querySelectorAll('section[id], footer[id]').forEach(el => spyObserver.observe(el));
+
+    // 4. Fade In Animation on Scroll
+    const fadeOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in-element');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, fadeOptions);
+
+    document.querySelectorAll('section, .project-card, .bg-card, .cert-card').forEach(el => fadeObserver.observe(el));
+
+    // 5. Sticky Arrow Button Logic (Single vs Double Click)
+    let clickCount = 0;
+    let clickTimer = null;
+
+    stickyBtn?.addEventListener('click', () => {
+        clickCount++;
+        if (clickCount === 1) {
+            clickTimer = setTimeout(() => {
+                if (clickCount === 1) {
+                    // Single click: Ke Section Sebelumnya
+                    const currentPos = window.scrollY + 100;
+                    const allSects = [...document.querySelectorAll('section[id], footer[id]')];
+                    const currentIndex = allSects.findLastIndex(s => s.offsetTop <= currentPos);
+                    
+                    if (currentIndex > 0) {
+                        const prev = allSects[currentIndex - 1];
+                        window.scrollTo({ top: prev.offsetTop - 70, behavior: 'smooth' });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                }
+                clickCount = 0;
+            }, 300);
+        } else {
+            // Double click: Langsung ke Top
+            clearTimeout(clickTimer);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            clickCount = 0;
         }
     });
-}, observerOptions);
 
-// Tambahkan observer ke semua section, div dengan class 'bg-card', dan elemen penting lainnya
-document.querySelectorAll('section, .bg-card, h2, h3').forEach(element => {
-    observer.observe(element);
-});
+    // 6. Ripple Effect (Tombol Interaktif)
+    document.querySelectorAll('.ripple-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
 
-// Efek sederhana saat halaman di-scroll
-window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-        nav.style.boxShadow = "0 4px 30px rgba(0, 0, 0, 0.5)";
-    } else {
-        nav.style.boxShadow = "none";
-    }
-});
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            ripple.classList.add('ripple');
 
-// Sticky Arrow Button - Single Click & Double Click Functionality
-const stickyArrowBtn = document.getElementById('stickyArrowBtn');
-let clickCount = 0;
-let clickTimer = null;
+            this.appendChild(ripple);
 
-// Daftar semua section yang ada di halaman (sesuai urutan)
-const sections = ['about', 'projects', 'tech', 'certification', 'contact'];
-
-// Fungsi untuk mendapatkan section saat ini berdasarkan scroll position
-function getCurrentSection() {
-    const scrollPosition = window.scrollY + window.innerHeight / 2;
-    
-    for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-            return i;
-        }
-    }
-    return 0;
-}
-
-// Single click: scroll ke section sebelumnya
-// Double click: scroll ke atas (halaman paling atas)
-stickyArrowBtn.addEventListener('click', function () {
-    clickCount++;
-    
-    if (clickCount === 1) {
-        // Single click - tunggu 300ms untuk pastikan bukan double click
-        clickTimer = setTimeout(() => {
-            const currentIndex = getCurrentSection();
-            
-            // Jika sudah di section pertama, scroll ke top
-            if (currentIndex <= 0) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                // Scroll ke section sebelumnya
-                const previousSection = document.getElementById(sections[currentIndex - 1]);
-                if (previousSection) {
-                    previousSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-            
-            clickCount = 0;
-        }, 300);
-    } else if (clickCount === 2) {
-        // Double click - scroll ke atas langsung
-        clearTimeout(clickTimer);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        clickCount = 0;
-    }
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
 });

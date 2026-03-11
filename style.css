@@ -1,0 +1,226 @@
+/* =========================================
+   1. UTILS & SCROLL MANAGEMENT
+   ========================================= */
+/* Menyembunyikan scrollbar tanpa menghilangkan fungsi scroll */
+.scrollbar-hide::-webkit-scrollbar { 
+    display: none; 
+}
+.scrollbar-hide { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+/* Offset Scroll agar judul section tidak tertutup Navbar Fixed */
+section, footer {
+    scroll-margin-top: 80px;
+}
+
+/* Memastikan konten berada di tengah tanpa terdorong padding atas yang berlebih */
+section {
+    padding-top: 0 !important;
+}
+
+/* =========================================
+   2. NAVIGATION (NAVBAR & LINKS)
+   ========================================= */
+/* Nav Link Default State */
+.nav-link {
+    position: relative;
+    color: #94a3b8; /* slate-400 */
+    transition: all 0.3s ease;
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: #818cf8; /* indigo-400 */
+}
+
+/* Garis bawah dasar (invisible) */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #818cf8;
+    transition: width 0.3s ease;
+}
+
+/* State Aktif saat Section dikunjungi */
+.nav-link.active {
+    color: #818cf8 !important;
+    font-weight: 700;
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+/* Hamburger Menu Toggle (Mobile) */
+.menu-toggle {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 100;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animasi Hamburger menjadi 'X' saat Active */
+.menu-toggle.active span:nth-child(1) { 
+    transform: rotate(45deg) translate(5px, 6px); 
+}
+.menu-toggle.active span:nth-child(2) { 
+    opacity: 0; 
+}
+.menu-toggle.active span:nth-child(3) { 
+    transform: rotate(-45deg) translate(5px, -6px); 
+}
+
+/* Mobile Navigation Overlay */
+@media (max-width: 768px) {
+    #navMenu.show {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 2rem;
+        background: rgba(15, 23, 42, 0.95); /* dark/95 */
+        backdrop-filter: blur(12px);
+        text-align: center;
+        gap: 1.5rem;
+        border-bottom: 1px solid rgba(30, 41, 59, 0.5); /* slate-800 */
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* =========================================
+   3. INTERACTIVE COMPONENTS
+   ========================================= */
+/* Sticky Arrow Button (Scroll to Top/Prev) */
+.sticky-arrow-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+    border: 2px solid rgba(129, 140, 248, 0.5);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(129, 140, 248, 0.3);
+}
+
+.sticky-arrow-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
+    box-shadow: 0 10px 25px rgba(129, 140, 248, 0.5);
+}
+
+.sticky-arrow-btn:active {
+    transform: scale(0.95);
+}
+
+/* Tooltip untuk Tech Stack Icons */
+.tech-icon {
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.tech-icon:hover {
+    transform: translateY(-5px);
+}
+
+.tech-icon:hover .tech-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.tech-tooltip {
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%) translateY(5px);
+    background: #818cf8;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   4. ANIMATIONS & EFFECTS
+   ========================================= */
+/* Fade In Up saat Scroll */
+.fade-in-element {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ripple Effect pada Tombol */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: scale(0);
+    animation: rippleAnim 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes rippleAnim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Project Card Overlay & Image Glassmorphism */
+.project-card {
+    transition: all 0.4s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.bg-card-glass {
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
