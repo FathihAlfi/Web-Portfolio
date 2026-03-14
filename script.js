@@ -1,18 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Pastikan urutan ID sesuai dengan struktur HTML Anda
-    const sectionsArr = ['hero', 'about', 'projects', 'tech', 'certification', 'contact'];
+    // === 1. DEFINISI ELEMEN ===
     const navLinks = document.querySelectorAll('.nav-link');
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('navMenu');
     const stickyBtn = document.getElementById('stickyArrowBtn');
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
 
-    // 1. Mobile Menu Toggle
+    // === 2. NAVIGASI MOBILE ===
     menuToggle?.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
         navMenu.classList.toggle('show');
     });
 
-    // 2. Smooth Scroll & Manual Highlight
+    // === 3. SMOOTH SCROLL & AUTO-CLOSE MENU ===
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -20,27 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                // Offset 70px untuk navbar fixed
                 window.scrollTo({ 
                     top: targetElement.offsetTop - 70, 
                     behavior: 'smooth' 
                 });
 
-                // Paksa aktifkan menu saat diklik (menghindari delay observer)
+                // Update status aktif secara manual
                 navLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
             }
 
-            // Tutup menu mobile
+            // Tutup menu mobile setelah klik
             menuToggle?.classList.remove('active');
             navMenu?.classList.remove('show');
         });
     });
 
-    // 3. Scroll Spy (Intersection Observer)
+    // === 4. SCROLL SPY (Highlight Menu saat Scroll) ===
     const spyOptions = { 
-        threshold: [0.2, 0.5], // Deteksi ganda untuk akurasi
-        rootMargin: "-20% 0px -20% 0px" // Fokus pada area tengah layar
+        threshold: [0.2, 0.5],
+        rootMargin: "-20% 0px -20% 0px" 
     };
 
     const spyObserver = new IntersectionObserver((entries) => {
@@ -54,23 +55,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, spyOptions);
 
-    // Memantau Section DAN Footer (agar Contact terdeteksi)
     document.querySelectorAll('section[id], footer[id]').forEach(el => spyObserver.observe(el));
 
-    // 4. Fade In Animation on Scroll
-    const fadeOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    // === 5. FADE IN ANIMATION (Optimasi Mobile) ===
+    const fadeOptions = { 
+        threshold: 0.1, 
+        rootMargin: "0px 0px -50px 0px" 
+    };
+
     const fadeObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in-element');
+                entry.target.classList.add('reveal'); // Pastikan CSS menggunakan .reveal
                 fadeObserver.unobserve(entry.target);
             }
         });
     }, fadeOptions);
 
-    document.querySelectorAll('section, .project-card, .bg-card, .cert-card').forEach(el => fadeObserver.observe(el));
+    // Daftarkan semua elemen yang ingin diberi animasi
+    document.querySelectorAll('section, .project-card, .bg-card, .cert-card, .tech-card').forEach(el => {
+        el.classList.add('fade-in-section'); // Tambahkan class dasar via JS agar aman
+        fadeObserver.observe(el);
+    });
 
-    // 5. Sticky Arrow Button Logic (Single vs Double Click)
+    // === 6. STICKY ARROW BUTTON (Scroll Logic) ===
     let clickCount = 0;
     let clickTimer = null;
 
@@ -101,7 +109,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 6. Ripple Effect (Tombol Interaktif)
+    // === 7. FORM SUBMISSION (Vercel API & Supabase) ===
+    contactForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Loading state
+        submitBtn.disabled = true;
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner animate-spin"></i> Sending...';
+
+        const formData = {
+            name: document.getElementById('userName').value,
+            email: document.getElementById('userEmail').value,
+            message: document.getElementById('userMessage').value,
+        };
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to send message');
+            }
+
+            // Berhasil
+            successMsg.classList.remove('hidden');
+            contactForm.reset();
+            setTimeout(() => successMsg.classList.add('hidden'), 5000);
+
+        } catch (err) {
+            alert('Error: ' + err.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    });
+
+    // === 8. RIPPLE EFFECT ===
     document.querySelectorAll('.ripple-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             const ripple = document.createElement('span');
@@ -116,104 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ripple.classList.add('ripple');
 
             this.appendChild(ripple);
-
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
+            setTimeout(() => ripple.remove(), 600);
         });
     });
 });
-
-
-// script.js
-document.addEventListener('DOMContentLoaded', () => {
-    const contactForm = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const successMsg = document.getElementById('successMsg');
-
-    contactForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fas fa-spinner animate-spin"></i> Sending...';
-
-        const formData = {
-            name: document.getElementById('userName').value,
-            email: document.getElementById('userEmail').value,
-            message: document.getElementById('userMessage').value,
-        };
-
-        try {
-            // Panggil API Vercel lokal (relatif ke domain)
-            const response = await fetch('/api/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            if (!response.ok) throw new Error('Failed to send message');
-
-            // Berhasil
-            successMsg.classList.remove('hidden');
-            contactForm.reset();
-            setTimeout(() => successMsg.classList.add('hidden'), 5000);
-
-        } catch (err) {
-            alert('Error: ' + err.message);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Send Message';
-        }
-    });
-});
-
-
-// Konfigurasi Supabase (Ganti dengan URL dan API Key dari Dashboard Supabase Anda)
-// const SUPABASE_URL = 'URL_PROYEK_SUPABASE_ANDA';
-// const SUPABASE_ANON_KEY = 'ANON_KEY_SUPABASE_ANDA';
-// const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const contactForm = document.getElementById('contactForm');
-//     const submitBtn = document.getElementById('submitBtn');
-//     const successMsg = document.getElementById('successMsg');
-
-//     contactForm?.addEventListener('submit', async (e) => {
-//         e.preventDefault();
-        
-//         // Ubah tampilan tombol saat loading
-//         const originalBtnText = submitBtn.innerHTML;
-//         submitBtn.disabled = true;
-//         submitBtn.innerHTML = '<i class="fas fa-spinner animate-spin"></i> Sending...';
-
-//         // Ambil data
-//         const formData = {
-//             name: document.getElementById('userName').value,
-//             email: document.getElementById('userEmail').value,
-//             message: document.getElementById('userMessage').value,
-//         };
-
-//         try {
-//             // Simpan ke tabel 'contacts' di Supabase
-//             const { error } = await _supabase
-//                 .from('contacts')
-//                 .insert([formData]);
-
-//             if (error) throw error;
-
-//             // Jika Berhasil
-//             successMsg.classList.remove('hidden');
-//             contactForm.reset();
-            
-//             // Sembunyikan pesan sukses setelah 5 detik
-//             setTimeout(() => successMsg.classList.add('hidden'), 5000);
-
-//         } catch (err) {
-//             alert('Error: ' + err.message);
-//         } finally {
-//             // Kembalikan tombol ke keadaan semula
-//             submitBtn.disabled = false;
-//             submitBtn.innerHTML = originalBtnText;
-//         }
-//     });
-// });

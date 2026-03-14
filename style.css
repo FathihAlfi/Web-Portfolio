@@ -1,226 +1,175 @@
 /* =========================================
    1. UTILS & SCROLL MANAGEMENT
    ========================================= */
-/* Menyembunyikan scrollbar tanpa menghilangkan fungsi scroll */
-.scrollbar-hide::-webkit-scrollbar { 
-    display: none; 
-}
-.scrollbar-hide { 
-    -ms-overflow-style: none; 
-    scrollbar-width: none; 
-}
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Offset Scroll agar judul section tidak tertutup Navbar Fixed */
 section, footer {
     scroll-margin-top: 80px;
 }
 
-/* Memastikan konten berada di tengah tanpa terdorong padding atas yang berlebih */
 section {
-    padding-top: 0 !important;
+    padding-top: 5rem !important;
+    padding-bottom: 5rem !important;
 }
 
 /* =========================================
    2. NAVIGATION (NAVBAR & LINKS)
    ========================================= */
-/* Nav Link Default State */
 .nav-link {
     position: relative;
-    color: #94a3b8; /* slate-400 */
-    transition: all 0.3s ease;
+    color: #94a3b8; 
+    transition: color 0.3s ease;
     padding-bottom: 4px;
-    cursor: pointer;
 }
 
-.nav-link:hover {
-    color: #818cf8; /* indigo-400 */
+.nav-link:hover, .nav-link.active {
+    color: #818cf8;
 }
 
-/* Garis bawah dasar (invisible) */
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #818cf8;
-    transition: width 0.3s ease;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: linear-gradient(to right, #818cf8, #a78bfa);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* State Aktif saat Section dikunjungi */
-.nav-link.active {
-    color: #818cf8 !important;
-    font-weight: 700;
-}
+.nav-link.active::after { width: 100%; }
 
-.nav-link.active::after {
-    width: 100%;
-}
-
-/* Hamburger Menu Toggle (Mobile) */
+/* --- ICON BURGER (Penting: Ini yang tadi hilang) --- */
 .menu-toggle {
-    cursor: pointer;
-    display: flex;
+    display: flex; /* Default flex agar terlihat di mobile */
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
+    cursor: pointer;
     z-index: 100;
+    padding: 5px;
 }
 
 .menu-toggle span {
-    width: 25px;
+    display: block;
+    width: 28px;
     height: 3px;
-    background: white;
-    border-radius: 2px;
-    transition: all 0.3s ease-in-out;
+    background: #f8fafc; /* slate-50 */
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-/* Animasi Hamburger menjadi 'X' saat Active */
-.menu-toggle.active span:nth-child(1) { 
-    transform: rotate(45deg) translate(5px, 6px); 
-}
-.menu-toggle.active span:nth-child(2) { 
-    opacity: 0; 
-}
-.menu-toggle.active span:nth-child(3) { 
-    transform: rotate(-45deg) translate(5px, -6px); 
+/* Animasi Burger menjadi 'X' */
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
 }
 
-/* Mobile Navigation Overlay */
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay Precision */
 @media (max-width: 768px) {
     #navMenu.show {
         display: flex;
         flex-direction: column;
-        position: absolute;
-        top: 100%;
+        align-items: center; /* Memastikan semua teks benar-benar di as tengah */
+        justify-content: center;
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
-        padding: 2rem;
-        background: rgba(15, 23, 42, 0.95); /* dark/95 */
-        backdrop-filter: blur(12px);
+        height: 100vh;
+        padding: 0; /* Reset padding agar tidak mendorong teks */
+        margin: 0;  /* Reset margin */
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(20px);
+        z-index: 90;
+        gap: 2.5rem; /* Gunakan gap, bukan space-x, agar konsisten di kolom */
+    }
+
+    /* Memastikan tidak ada margin kiri yang tersisa pada item list */
+    #navMenu.show li {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        width: 100%;
         text-align: center;
-        gap: 1.5rem;
-        border-bottom: 1px solid rgba(30, 41, 59, 0.5); /* slate-800 */
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
     }
 }
 
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* =========================================
-   3. INTERACTIVE COMPONENTS
+   3. INTERACTIVE COMPONENTS (CARDS)
    ========================================= */
-/* Sticky Arrow Button (Scroll to Top/Prev) */
+.about-card, .project-card, .tech-card {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform, box-shadow, border-color;
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-card:hover, .project-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    border-color: rgba(129, 140, 248, 0.4);
+    background: rgba(30, 41, 59, 0.6);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(129, 140, 248, 0.15);
+}
+
+/* Sticky Arrow Button */
 .sticky-arrow-btn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
+    bottom: 30px; right: 30px;
+    width: 50px; height: 50px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
-    border: 2px solid rgba(129, 140, 248, 0.5);
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
     color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 99;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(129, 140, 248, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
 }
 
 .sticky-arrow-btn:hover {
-    transform: translateY(-5px) scale(1.05);
-    background: linear-gradient(135deg, #a78bfa 0%, #c4b5fd 100%);
-    box-shadow: 0 10px 25px rgba(129, 140, 248, 0.5);
-}
-
-.sticky-arrow-btn:active {
-    transform: scale(0.95);
-}
-
-/* Tooltip untuk Tech Stack Icons */
-.tech-icon {
-    position: relative;
-    transition: transform 0.3s ease;
-}
-
-.tech-icon:hover {
-    transform: translateY(-5px);
-}
-
-.tech-icon:hover .tech-tooltip {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
-.tech-tooltip {
-    position: absolute;
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%) translateY(5px);
-    background: #818cf8;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px) rotate(5deg) scale(1.1);
 }
 
 /* =========================================
    4. ANIMATIONS & EFFECTS
    ========================================= */
-/* Fade In Up saat Scroll */
-.fade-in-element {
+.fade-in-section {
     opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1), transform 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+    will-change: opacity, transform;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.fade-in-section.reveal {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Ripple Effect pada Tombol */
 .ripple {
     position: absolute;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
     transform: scale(0);
-    animation: rippleAnim 0.6s linear;
+    animation: rippleAnim 0.6s ease-out;
     pointer-events: none;
 }
 
 @keyframes rippleAnim {
-    to {
-        transform: scale(4);
-        opacity: 0;
-    }
-}
-
-/* Project Card Overlay & Image Glassmorphism */
-.project-card {
-    transition: all 0.4s ease;
-}
-
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    to { transform: scale(4); opacity: 0; }
 }
 
 .bg-card-glass {
-    background: rgba(30, 41, 59, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
