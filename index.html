@@ -11,6 +11,9 @@
     
     <link rel="stylesheet" href="style.css">
 
+    <!-- Supabase JS SDK (untuk integrasi backend jika diperlukan) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -26,10 +29,12 @@
     <nav class="fixed top-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-slate-800 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
             <div class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
-                Portfolio
+                <a href="#hero" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 hover:opacity-80 transition-opacity">
+                    Portfolio
+                </a>
             </div>
-            <ul class="hidden md:flex space-x-8 text-sm font-medium" id="navMenu">
-                <li><a href="#hero" class="nav-link">Home</a></li>
+            <ul class="hidden md:flex ml-auto space-x-8 text-sm font-medium" id="navMenu">
+                <!-- <li><a href="#hero" class="nav-link">Home</a></li> -->
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#tech" class="nav-link">Tech Stack</a></li>
@@ -91,17 +96,31 @@
     <section id="projects" x-data="{ filter: 'all' }" class="min-h-screen pt-32 pb-20 px-6 text-center">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-4xl font-bold mb-4">Featured <span class="text-accent">Projects</span></h2>
-            <p class="text-slate-400 mb-12">Kumpulan karya pengembangan sistem informasi dan kecerdasan buatan.</p>
+            <p class="text-slate-400 mb-6">Kumpulan karya pengembangan sistem informasi dan kecerdasan buatan.</p>
             
-            <div class="flex justify-center gap-3 mb-16 flex-wrap">
-                <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" class="px-8 py-2.5 rounded-full text-sm font-bold border border-slate-700 transition">All</button>
-                <button @click="filter = 'web'" :class="filter === 'web' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" class="px-8 py-2.5 rounded-full text-sm font-bold border border-slate-700 transition">Web Development</button>
-                <button @click="filter = 'ai'" :class="filter === 'ai' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" class="px-8 py-2.5 rounded-full text-sm font-bold border border-slate-700 transition">AI Development</button>
+            <div class="w-full max-w-full overflow-x-hidden flex justify-center mb-10 px-2">
+                <div class="flex flex-wrap justify-center gap-2 md:gap-3">
+                    <button @click="filter = 'all'" 
+                            :class="filter === 'all' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" 
+                            class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">
+                        All
+                    </button>
+                    <button @click="filter = 'web'" 
+                            :class="filter === 'web' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" 
+                            class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">
+                        Web Development
+                    </button>
+                    <button @click="filter = 'ai'" 
+                            :class="filter === 'ai' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" 
+                            class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">
+                        AI Development
+                    </button>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/fdr.jpg" alt="Sales Order HRGroup" class="h-48 w-full object-cover group-hover:scale-110 transition duration-500">
+                    <img src="img/EFO.jpeg" alt="Sales Order HRGroup" class="h-48 w-full object-cover group-hover:scale-110 transition duration-500">
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-3 text-white">Sales Order & Tracking HRGroup</h3>
                         <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Sistem manajemen data sales order dan tracking untuk Hasta Raya Sumbar.</p>
@@ -114,7 +133,7 @@
                 </div>
 
                 <div x-show="filter === 'all' || filter === 'ai' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/Sistem Informasi Deteksi Penyakit Padi.jpg" alt="Deteksi Padi" class="h-48 w-full object-cover">
+                    <img src="img/sawah.jpg" alt="Deteksi Padi" class="h-48 w-full object-cover">
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-3 text-white">Sistem Informasi Deteksi Penyakit Padi</h3>
                         <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Sistem manajemen penelitian LPHP BPTPH Sumatera Barat terintegrasi CNN.</p>
@@ -127,7 +146,7 @@
                 </div>
 
                 <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/trade-journal.png" alt="Trading Journal" class="h-48 w-full object-cover">
+                    <img src="img/TRADE.jpg" alt="Trading Journal" class="h-48 w-full object-cover">
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-3 text-white">Trading Journaling System</h3>
                         <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed text-justify">Monitoring pengelolaan serta pencatatan hasil trading.</p>
@@ -140,7 +159,7 @@
                 </div>
 
                 <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="https://picsum.photos/400/220?random=1" alt="DTI Unand" class="h-48 w-full object-cover">
+                    <img src="img/DTI.png" alt="DTI Unand" class="h-48 w-full object-cover">
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-3 text-white">Inventaris DTI Unand</h3>
                         <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Pencatatan inventaris di Direktorat Teknologi Informasi Universitas Andalas.</p>
@@ -153,7 +172,7 @@
                 </div>
 
                 <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/project-kkn.png" alt="KKN" class="h-48 w-full object-cover">
+                    <img src="img/KKN.png" alt="KKN" class="h-48 w-full object-cover">
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-3 text-white">Prototype Web KKN Situjuah</h3>
                         <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed text-justify">Platform informasi digital untuk Nagari Situjuah Batua.</p>
@@ -166,7 +185,7 @@
                 </div>
 
                 <div x-show="filter === 'all' || filter === 'ai'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="https://picsum.photos/400/220?random=2" alt="Batik AI" class="h-48 w-full object-cover">
+                    <img src="img/batik.png" alt="Batik AI" class="h-48 w-full object-cover">
                     <div class="p-8 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-3 text-white">Batik Classification AI</h3>
                         <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Klasifikasi otomatis motif batik Indonesia menggunakan CNN.</p>
@@ -234,18 +253,30 @@
         <div class="max-w-xl w-full relative z-10">
             <h2 class="text-4xl font-bold mb-4 text-accent">Get in Touch</h2>
             <p class="text-slate-400 mb-10">Have a project or question? Send me a message!</p>
-            <form class="space-y-4 mb-10" action="https://formspree.io/f/mwvngdvp" method="POST">
-                <input type="text" name="name" placeholder="Name" required class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700">
-                <input type="email" name="email" placeholder="Email" required class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700">
-                <textarea name="message" placeholder="Message" rows="5" required class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700"></textarea>
-                <button type="submit" class="w-full bg-indigo-600 py-3 rounded-lg font-bold hover:bg-indigo-700 ripple-btn transition">Send Message</button>
+            
+            <form id="contactForm" class="space-y-4 mb-10">
+                <input type="text" name="name" id="userName" placeholder="Name" required 
+                    class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition">
+                <input type="email" name="email" id="userEmail" placeholder="Email" required 
+                    class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition">
+                <textarea name="message" id="userMessage" placeholder="Message" rows="5" required 
+                        class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition resize-none"></textarea>
+                
+                <button type="submit" id="submitBtn" class="w-full bg-indigo-600 py-3 rounded-lg font-bold hover:bg-indigo-700 ripple-btn transition flex items-center justify-center gap-2">
+                    <span>Send Message</span>
+                </button>
             </form>
+
+            <div id="successMsg" class="hidden bg-green-500/10 border border-green-500/50 text-green-400 p-4 rounded-lg mb-6">
+                ✓ Message sent successfully! I'll get back to you soon.
+            </div>
+
             <div class="flex justify-center gap-6 flex-wrap text-accent">
                 <a href="mailto:fathihalfi@gmail.com" class="hover:text-white transition"><i class="fas fa-envelope mr-2"></i>Email</a>
                 <a href="https://github.com/FathihAlfi" target="_blank" class="hover:text-white transition"><i class="fab fa-github mr-2"></i>GitHub</a>
                 <a href="https://linkedin.com/in/fathih-muhammad-alfi" target="_blank" class="hover:text-white transition"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
             </div>
-            <p class="text-slate-500 text-sm mt-12">© 2026 Portfolio. Built with Tailwind CSS & Alpine.js.</p>
+            <p class="text-slate-500 text-sm mt-12">© 2026 Portfolio. Built with Tailwind CSS & Supabase.</p>
         </div>
     </footer>
 

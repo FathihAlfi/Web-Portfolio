@@ -123,3 +123,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+// script.js
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMsg');
+
+    contactForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner animate-spin"></i> Sending...';
+
+        const formData = {
+            name: document.getElementById('userName').value,
+            email: document.getElementById('userEmail').value,
+            message: document.getElementById('userMessage').value,
+        };
+
+        try {
+            // Panggil API Vercel lokal (relatif ke domain)
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) throw new Error('Failed to send message');
+
+            // Berhasil
+            successMsg.classList.remove('hidden');
+            contactForm.reset();
+            setTimeout(() => successMsg.classList.add('hidden'), 5000);
+
+        } catch (err) {
+            alert('Error: ' + err.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Send Message';
+        }
+    });
+});
+
+
+// Konfigurasi Supabase (Ganti dengan URL dan API Key dari Dashboard Supabase Anda)
+// const SUPABASE_URL = 'URL_PROYEK_SUPABASE_ANDA';
+// const SUPABASE_ANON_KEY = 'ANON_KEY_SUPABASE_ANDA';
+// const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// document.addEventListener('DOMContentLoaded', () => {
+//     const contactForm = document.getElementById('contactForm');
+//     const submitBtn = document.getElementById('submitBtn');
+//     const successMsg = document.getElementById('successMsg');
+
+//     contactForm?.addEventListener('submit', async (e) => {
+//         e.preventDefault();
+        
+//         // Ubah tampilan tombol saat loading
+//         const originalBtnText = submitBtn.innerHTML;
+//         submitBtn.disabled = true;
+//         submitBtn.innerHTML = '<i class="fas fa-spinner animate-spin"></i> Sending...';
+
+//         // Ambil data
+//         const formData = {
+//             name: document.getElementById('userName').value,
+//             email: document.getElementById('userEmail').value,
+//             message: document.getElementById('userMessage').value,
+//         };
+
+//         try {
+//             // Simpan ke tabel 'contacts' di Supabase
+//             const { error } = await _supabase
+//                 .from('contacts')
+//                 .insert([formData]);
+
+//             if (error) throw error;
+
+//             // Jika Berhasil
+//             successMsg.classList.remove('hidden');
+//             contactForm.reset();
+            
+//             // Sembunyikan pesan sukses setelah 5 detik
+//             setTimeout(() => successMsg.classList.add('hidden'), 5000);
+
+//         } catch (err) {
+//             alert('Error: ' + err.message);
+//         } finally {
+//             // Kembalikan tombol ke keadaan semula
+//             submitBtn.disabled = false;
+//             submitBtn.innerHTML = originalBtnText;
+//         }
+//     });
+// });
