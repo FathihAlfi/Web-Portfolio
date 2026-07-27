@@ -4,13 +4,18 @@
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
-section, footer {
-    scroll-margin-top: 80px;
+section {
+    position: relative;
+    /* Tidak ada padding-top global di sini agar Flexbox HTML bekerja sempurna */
 }
 
-section {
-    padding-top: 5rem !important;
-    padding-bottom: 5rem !important;
+/* Pastikan wrapper about tidak bergeser */
+.about-content-wrapper {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 5;
 }
 
 /* =========================================
@@ -38,9 +43,9 @@ section {
 
 .nav-link.active::after { width: 100%; }
 
-/* --- ICON BURGER (Penting: Ini yang tadi hilang) --- */
+/* --- ICON BURGER --- */
 .menu-toggle {
-    display: flex; /* Default flex agar terlihat di mobile */
+    display: flex;
     flex-direction: column;
     gap: 6px;
     cursor: pointer;
@@ -52,46 +57,34 @@ section {
     display: block;
     width: 28px;
     height: 3px;
-    background: #f8fafc; /* slate-50 */
+    background: #f8fafc;
     border-radius: 4px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-/* Animasi Burger menjadi 'X' */
-.menu-toggle.active span:nth-child(1) {
-    transform: translateY(9px) rotate(45deg);
-}
-
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-    transform: translateX(20px);
-}
-
-.menu-toggle.active span:nth-child(3) {
-    transform: translateY(-9px) rotate(-45deg);
-}
+.menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+.menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
 /* Mobile Menu Overlay Precision */
 @media (max-width: 768px) {
     #navMenu.show {
         display: flex;
         flex-direction: column;
-        align-items: center; /* Memastikan semua teks benar-benar di as tengah */
+        align-items: center;
         justify-content: center;
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100vh;
-        padding: 0; /* Reset padding agar tidak mendorong teks */
-        margin: 0;  /* Reset margin */
+        padding: 0;
+        margin: 0;
         background: rgba(15, 23, 42, 0.98);
         backdrop-filter: blur(20px);
         z-index: 90;
-        gap: 2.5rem; /* Gunakan gap, bukan space-x, agar konsisten di kolom */
+        gap: 2.5rem;
     }
-
-    /* Memastikan tidak ada margin kiri yang tersisa pada item list */
     #navMenu.show li {
         margin-left: 0 !important;
         padding-left: 0 !important;
@@ -122,7 +115,6 @@ section {
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(129, 140, 248, 0.15);
 }
 
-/* Sticky Arrow Button */
 .sticky-arrow-btn {
     position: fixed;
     bottom: 30px; right: 30px;
@@ -172,4 +164,59 @@ section {
     -webkit-backdrop-filter: blur(12px);
     background: rgba(15, 23, 42, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Animasi Slider */
+@keyframes scroll-right {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.infinite-scroll {
+    display: flex;
+    width: max-content;
+    animation: scroll-right 20s linear infinite;
+}
+
+.scroll-container {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.image-item {
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.image-item:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+/* Modal Styling */
+#projectModal {
+    transition: opacity 0.3s ease;
+}
+
+/* Animasi Jalur SVG */
+.bg-path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawPath 15s linear infinite;
+}
+
+@keyframes drawPath {
+    0% { stroke-dashoffset: 1000; }
+    100% { stroke-dashoffset: -1000; }
+}
+
+.paths-container {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.paths-container svg {
+    opacity: 0.6;
 }

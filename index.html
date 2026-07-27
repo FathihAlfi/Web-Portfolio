@@ -7,11 +7,11 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Alpine.js ditambahkan dengan benar -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <link rel="stylesheet" href="style.css">
-
-    <!-- Supabase JS SDK (untuk integrasi backend jika diperlukan) -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
@@ -27,9 +27,9 @@
 <body class="bg-dark text-slate-200 font-sans">
 
     <nav class="fixed top-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-slate-800 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <a href="#hero" class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 hover:opacity-80 transition-opacity">
+                <a href="#hero" class="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 hover:opacity-80 transition-opacity">
                     Portfolio
                 </a>
             </div>
@@ -38,8 +38,6 @@
                 <li><a href="#hero" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#tech" class="nav-link">Tech Stack</a></li>
-                <li><a href="#certification" class="nav-link">Certifications</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
 
@@ -51,259 +49,324 @@
         </div>
     </nav>
 
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden px-6 pt-20 fade-in-section py-20 px-6">
-        <div class="absolute top-1/4 left-1/4 w-72 md:w-96 h-72 md:h-96 bg-indigo-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-72 md:w-96 h-72 md:h-96 bg-purple-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"></div>
-        <div class="relative z-10 text-center max-w-4xl mx-auto w-full" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
-            <h1 x-show="show" x-transition class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-white leading-tight">
-                Web Developer & <span class="text-accent">AI Engineer</span>
+    <section id="hero" class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden fade-in-section bg-dark px-4 sm:px-6">
+        <div class="absolute top-1/4 left-1/4 w-56 sm:w-72 md:w-96 h-56 sm:h-72 md:h-96 bg-indigo-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-56 sm:w-72 md:w-96 h-56 sm:h-72 md:h-96 bg-purple-600/20 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"></div>
+        <div class="relative z-10 text-center max-w-4xl mx-auto w-full mt-10" x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)">
+           <h1 x-show="show" x-transition class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 sm:mb-6 text-white leading-tight">
+                Web Developer & <br>
+                <span class="text-accent">AI Engineer</span>
             </h1>
-            <p class="text-base md:text-xl text-slate-300 mb-10">Crafting intelligent web experiences with cutting-edge technology</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#about" class="px-8 py-3.5 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">Learn More</a>
-                <a href="#contact" class="px-8 py-3.5 rounded-full border border-slate-600 hover:bg-slate-800 transition">Get in Touch</a>
+            <p class="text-sm sm:text-base md:text-xl text-slate-300 mb-8 sm:mb-10 px-2">Crafting intelligent web experiences with cutting-edge technology</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 sm:px-0">
+                <a href="#about" class="px-8 py-3.5 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition w-full sm:w-auto text-center">Learn More</a>
+                <a href="#contact" class="px-8 py-3.5 rounded-full border border-slate-600 hover:bg-slate-800 transition w-full sm:w-auto text-center">Get in Touch</a>
             </div>
         </div>
     </section>
 
-    <section id="about" class="min-h-screen py-20 px-6 flex flex-col items-center justify-center relative overflow-hidden fade-in-section">
-    <div class="absolute top-1/4 -left-20 w-64 h-64 bg-indigo-600/5 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-1/4 -right-20 w-64 h-64 bg-purple-600/5 rounded-full blur-3xl"></div>
-
-    <div class="max-w-6xl w-full relative z-10">
-        <div class="text-center mb-16">
-            <h3 class="text-indigo-400 font-medium tracking-widest uppercase text-sm mb-2">Introduction</h3>
-            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
-                Fathih Muhammad Alfi
-            </h2>
-            <div class="h-1.5 w-20 bg-gradient-to-r from-indigo-600 to-purple-600 mx-auto rounded-full mb-8"></div>
-            <p class="text-slate-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-                Passionate about creating innovative solutions at the intersection of 
-                <span class="text-white font-semibold">Web Development</span> and 
-                <span class="text-white font-semibold">Artificial Intelligence</span>.
-            </p>
+    <section id="about" class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden fade-in-section bg-dark px-4 sm:px-6 py-20">
+        <div class="paths-container">
+            <svg class="w-full h-full text-indigo-500/30 hidden sm:block" viewBox="0 0 696 316" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="paths-group">
+                    <path class="bg-path" d="M-100 -50 C-100 -50 100 150 300 250 C500 350 700 450 700 450" stroke="currentColor" stroke-width="0.8" />
+                    <path class="bg-path" d="M-120 -30 C-120 -30 120 170 320 270 C520 370 720 470 720 470" stroke="currentColor" stroke-width="0.5" style="animation-delay: -3s;"/>
+                    <path class="bg-path" d="M800 400 C800 400 600 200 400 100 C200 0 0 -100 0 -100" stroke="currentColor" stroke-width="0.8" style="animation-delay: -7s;"/>
+                    <path class="bg-path" d="M850 450 C850 450 650 250 450 150 C250 50 50 -50 50 -50" stroke="currentColor" stroke-width="0.5" style="animation-delay: -10s;"/>
+                </g>
+            </svg>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-            <div class="about-card bg-slate-800/40 p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group cursor-default">
-                <div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-indigo-500/20 transition-colors">
-                    <i class="fas fa-code text-indigo-400 text-xl"></i>
-                </div>
-                <h3 class="font-bold text-white text-lg mb-3">Full Stack Development</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">Building scalable web applications with modern frameworks like Laravel and Tailwind CSS.</p>
+        <div class="absolute top-1/4 -left-20 w-48 sm:w-64 h-48 sm:h-64 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-1/4 -right-20 w-48 sm:w-64 h-48 sm:h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-6xl w-full about-content-wrapper mt-10 sm:mt-0">
+            <div class="text-center mb-10 sm:mb-16">
+                <h3 class="text-indigo-400 font-medium tracking-widest uppercase text-xs sm:text-sm mb-2">Introduction</h3>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white mb-4 sm:mb-6">Fathih Muhammad Alfi</h2>
+                <div class="h-1.5 w-16 sm:w-20 bg-gradient-to-r from-indigo-600 to-purple-600 mx-auto rounded-full mb-6 sm:mb-8"></div>
+                <p class="text-slate-400 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-2">
+                    Passionate about creating innovative solutions at the intersection of <br class="hidden sm:block">
+                    <span class="text-white font-semibold">Web Development</span> and 
+                    <span class="text-white font-semibold">Artificial Intelligence</span>.
+                </p>
             </div>
 
-            <div class="about-card bg-slate-800/40 p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group cursor-default">
-                <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
-                    <i class="fas fa-brain text-purple-400 text-xl"></i>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- About Cards -->
+                <div class="about-card bg-slate-800/40 p-6 sm:p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group hover:shadow-indigo-500/10 transition-all cursor-default text-center sm:text-left">
+                    <div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6 mx-auto sm:mx-0 group-hover:bg-indigo-500/20 transition-colors">
+                        <i class="fas fa-code text-indigo-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg mb-2 sm:mb-3">Full Stack Development</h3>
+                    <p class="text-sm text-slate-400">Building scalable web applications with modern frameworks like Laravel and Tailwind CSS.</p>
                 </div>
-                <h3 class="font-bold text-white text-lg mb-3">AI & Machine Learning</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">Implementing intelligent solutions and deep learning models using CNN for complex classification tasks.</p>
-            </div>
 
-            <div class="about-card bg-slate-800/40 p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group cursor-default">
-                <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
-                    <i class="fas fa-rocket text-blue-400 text-xl"></i>
+                <div class="about-card bg-slate-800/40 p-6 sm:p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group hover:shadow-purple-500/10 transition-all cursor-default text-center sm:text-left">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6 mx-auto sm:mx-0 group-hover:bg-purple-500/20 transition-colors">
+                        <i class="fas fa-brain text-purple-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg mb-2 sm:mb-3">AI & Machine Learning</h3>
+                    <p class="text-sm text-slate-400">Implementing intelligent solutions and deep learning models using CNN for complex tasks.</p>
                 </div>
-                <h3 class="font-bold text-white text-lg mb-3">System Analysis</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">Designing efficient database architectures and tracking systems for optimal performance.</p>
-            </div>
 
-            <div class="about-card bg-slate-800/40 p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group cursor-default">
-                <div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-indigo-500/20 transition-colors">
-                    <i class="fas fa-graduation-cap text-indigo-400 text-xl"></i>
+                <div class="about-card bg-slate-800/40 p-6 sm:p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group hover:shadow-blue-500/10 transition-all cursor-default text-center sm:text-left">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6 mx-auto sm:mx-0 group-hover:bg-blue-500/20 transition-colors">
+                        <i class="fas fa-rocket text-blue-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg mb-2 sm:mb-3">System Analysis</h3>
+                    <p class="text-sm text-slate-400">Designing efficient database architectures and tracking systems for optimal performance.</p>
                 </div>
-                <h3 class="font-bold text-white text-lg mb-3">Information Systems</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">Graduated with a focus on bridging the gap between business needs and technological solutions.</p>
+
+                <div class="about-card bg-slate-800/40 p-6 sm:p-8 rounded-2xl border border-slate-700/50 backdrop-blur-md group hover:shadow-indigo-500/10 transition-all cursor-default text-center sm:text-left">
+                    <div class="w-12 h-12 bg-indigo-500/10 rounded-lg flex items-center justify-center mb-4 sm:mb-6 mx-auto sm:mx-0 group-hover:bg-indigo-500/20 transition-colors">
+                        <i class="fas fa-graduation-cap text-indigo-400 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg mb-2 sm:mb-3">Information Systems</h3>
+                    <p class="text-sm text-slate-400">Graduated with a focus on bridging the gap between business needs and technological solutions.</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-    <section id="projects" x-data="{ filter: 'all' }" class="min-h-screen pt-32 pb-20 px-6 text-center fade-in-section py-20 px-6">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl font-bold mb-4">Featured <span class="text-accent">Projects</span></h2>
-            <p class="text-slate-400 mb-6">Kumpulan karya pengembangan sistem informasi dan kecerdasan buatan.</p>
+    <section id="projects" 
+        x-data="{ 
+            filter: 'all',
+            modalOpen: false,
+            currentImg: 0,
+            activeProject: {},
+            projects: {
+                hastaraya: {
+                    title: 'Web Profile & Commerce Hasta Raya Sumbar',
+                    images: ['img/hastarayasumbar.png', 'img/tentangkami_hasta.png', 'img/product_hasta.png','img/portalcustomer_hasta.png','img/portaladmin_hasta.png'],
+                    desc: 'Fungsi Aplikasi: Platform digital yang berfungsi ganda sebagai profil resmi perusahaan (Company Profile) dan sistem toko online (e-commerce), memungkinkan masyarakat umum untuk berbelanja produk perusahaan secara langsung.',
+                    link: 'https://hastarayasumbar.com/'
+                },
+                hrtracker: {
+                    title: 'HR Tracker (Sales Monitor & Orders)',
+                    images: ['img/hr_tracker1.png','img/hr_dashboard.png','img/hr_trackingsales.png', 'img/hr_toko.png','img/hr_toko2.png', 'img/hr_history.png', 'img/hr_history2.png', 'img/hr_ocr.png'],
+                    desc: 'Fungsi Aplikasi: Sebuah sistem terintegrasi untuk memonitor lokasi dan riwayat perjalanan tim sales di lapangan, sekaligus menjadi alat pencatatan pesanan (order) langsung dari toko.',
+                    link: 'https://sales-monitor-hastaraya.hrgroupofficial.com/login'
+                },
+                padi: {
+                    title: 'Sistem Informasi Deteksi Penyakit Padi',
+                    images: ['img/TA_1.png','img/TA_3.png','img/TA_2.png','img/TA_4.png',],
+                    desc: 'Sistem Informasi yang mengintegrasikan antara Web dan AI development dengan objek LPHP BPTPH Sumatera Barat. Saya melakukan proses pelatihan model Convolutional Neural Network (CNN) untuk mengidentifikasi 4 penyakit padi, lalu mengintegrasikan model tersebut ke dalam aplikasi web agar dapat mendeteksi penyakit padi dan bisa digunakan untuk membuat Laporan Peringatan Bahaya dan rekomendasi penanganan penyakit padi.',
+                    link: 'https://github.com/FathihAlfi/Rice-Disease-Detection-Information-System'
+                },
+                dti: {
+                    title: 'Sistem Informasi Inventaris DTI Unand',
+                    images: ['img/kp1.png', 'img/kp2.png', 'img/kp3.png' ],
+                    desc: 'Pencatatan inventaris di Direktorat Teknologi Informasi Universitas Andalas. Pengembangan fitur manajemen aset digital, sistem pelaporan kondisi barang, serta kapabilitas filter dan pencarian untuk memudahkan proses audit inventaris.',
+                    link: 'https://github.com/FathihAlfi/DTI-inventory-information-system'
+                },
+                kkn: {
+                    title: 'Prototype Web KKN Nagari Situjuah Batua 2023',
+                    images: ['img/KKN.png', 'img/kkn_umkm.png', 'img/kkn_umkm2.png', 'img/kkn_pariwisata.png', 'img/kkn_kesehatan.png'],
+                    desc: 'Platform informasi digital perjalanan KKN Nagari Situjuah Batua 2023, yang berfungsi sebagai sarana transparansi publik dan promosi potensi lokal, termasuk UMKM, pariwisata, dan kesehatan masyarakat.',
+                    link: 'https://fathih01.github.io/KKN-Project/'
+                }
+            },
+            openModal(id) {
+                this.activeProject = this.projects[id];
+                this.currentImg = 0;
+                this.modalOpen = true;
+                document.body.style.overflow = 'hidden';
+            },
+            closeModal() {
+                this.modalOpen = false;
+                setTimeout(() => { document.body.style.overflow = 'auto'; }, 300);
+            },
+            nextImg() {
+                this.currentImg = (this.currentImg < this.activeProject.images.length - 1) ? this.currentImg + 1 : 0;
+            },
+            prevImg() {
+                this.currentImg = (this.currentImg > 0) ? this.currentImg - 1 : this.activeProject.images.length - 1;
+            }
+        }" 
+        class="pt-10 pb-16 px-4 sm:px-6 relative overflow-hidden fade-in-section bg-dark">
+        
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Featured <span class="text-accent">Projects</span></h2>
+            <p class="text-slate-400 mb-6 text-sm md:text-base px-2">Kumpulan karya pengembangan sistem informasi dan kecerdasan buatan.</p>
             
-            <div class="w-full max-w-full overflow-x-hidden flex justify-center mb-10 px-2">
+            <div class="w-full max-w-full overflow-x-hidden flex justify-center mb-6 sm:mb-8 px-2">
                 <div class="flex flex-wrap justify-center gap-2 md:gap-3">
-                    <button @click="filter = 'all'" 
-                            :class="filter === 'all' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" 
-                            class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">
-                        All
-                    </button>
-                    <button @click="filter = 'web'" 
-                            :class="filter === 'web' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" 
-                            class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">
-                        Web Development
-                    </button>
-                    <button @click="filter = 'ai'" 
-                            :class="filter === 'ai' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" 
-                            class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">
-                        AI Development
-                    </button>
+                    <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">All</button>
+                    <button @click="filter = 'web'" :class="filter === 'web' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">Web Development</button>
+                    <button @click="filter = 'ai'" :class="filter === 'ai' ? 'bg-indigo-600 text-white shadow-indigo-500/40' : 'bg-slate-800/50 text-slate-400'" class="px-4 md:px-8 py-2 rounded-full text-[12px] md:text-sm font-bold border border-slate-700 transition-all duration-300 active:scale-95">AI Development</button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/EFO.jpeg" alt="Sales Order HRGroup" class="h-48 w-full object-cover group-hover:scale-110 transition duration-500">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-white">Sales Order & Tracking HRGroup</h3>
-                        <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Sistem manajemen data sales order dan tracking untuk Hasta Raya Sumbar.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-3 py-1 rounded bg-indigo-500/10 text-accent border border-indigo-500/20 text-[10px] font-bold">LARAVEL</span>
-                            <span class="px-3 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 text-[10px] font-bold">MYSQL</span>
-                        </div>
-                        <a href="https://github.com/FathihAlfi" target="_blank" class="text-accent text-sm font-bold hover:underline">View Project <i class="fas fa-arrow-right ml-2"></i></a>
-                    </div>
-                </div>
-
-                <div x-show="filter === 'all' || filter === 'ai' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/sawah.jpg" alt="Deteksi Padi" class="h-48 w-full object-cover">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-white">Sistem Informasi Deteksi Penyakit Padi</h3>
-                        <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Sistem manajemen penelitian LPHP BPTPH Sumatera Barat terintegrasi CNN.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-3 py-1 rounded bg-indigo-500/10 text-accent border border-indigo-500/20 text-[10px] font-bold">LARAVEL</span>
-                            <span class="px-3 py-1 rounded bg-orange-500/10 text-orange-300 border border-orange-500/20 text-[10px] font-bold">CNN</span>
-                        </div>
-                        <a href="https://github.com/FathihAlfi/Rice-Disease-Detection-Information-System" target="_blank" class="text-accent text-sm font-bold hover:underline">View Project <i class="fas fa-arrow-right ml-2"></i></a>
-                    </div>
-                </div>
-
-                <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/TRADE.jpg" alt="Trading Journal" class="h-48 w-full object-cover">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-white">Trading Journaling System</h3>
-                        <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed text-justify">Monitoring pengelolaan serta pencatatan hasil trading.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-3 py-1 rounded bg-indigo-500/10 text-accent border border-indigo-500/20 text-[10px] font-bold">PHP</span>
-                            <span class="px-3 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 text-[10px] font-bold">MYSQL</span>
-                        </div>
-                        <a href="https://github.com/FathihAlfi/Trading-Journaling-System" target="_blank" class="text-accent text-sm font-bold hover:underline">View Project <i class="fas fa-arrow-right ml-2"></i></a>
-                    </div>
-                </div>
-
-                <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/DTI.png" alt="DTI Unand" class="h-48 w-full object-cover">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-white">Inventaris DTI Unand</h3>
-                        <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Pencatatan inventaris di Direktorat Teknologi Informasi Universitas Andalas.</p>
-                        <div class="flex flex-wrap gap-2 mb-6 text-[10px] font-bold">
-                            <span class="px-3 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">PHP</span>
-                            <span class="px-3 py-1 rounded bg-indigo-500/10 text-accent border border-indigo-500/20">MYSQL</span>
-                        </div>
-                        <a href="https://github.com/FathihAlfi/DTI-inventory-information-system" target="_blank" class="text-accent text-sm font-bold hover:underline">View Project <i class="fas fa-arrow-right ml-2"></i></a>
-                    </div>
-                </div>
-
-                <div x-show="filter === 'all' || filter === 'web'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/KKN.png" alt="KKN" class="h-48 w-full object-cover">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-white">Prototype Web KKN Situjuah</h3>
-                        <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed text-justify">Platform informasi digital untuk Nagari Situjuah Batua.</p>
-                        <div class="flex flex-wrap gap-2 mb-6">
-                            <span class="px-3 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 text-[10px] font-bold">PHP</span>
-                            <span class="px-3 py-1 rounded bg-indigo-500/10 text-accent border border-indigo-500/20 text-[10px] font-bold">MYSQL</span>
-                        </div>
-                        <a href="https://fathih01.github.io/KKN-Project/" target="_blank" class="text-accent text-sm font-bold hover:underline">View Project <i class="fas fa-arrow-right ml-2"></i></a>
-                    </div>
-                </div>
-
-                <div x-show="filter === 'all' || filter === 'ai'" class="project-card bg-card/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left">
-                    <img src="img/batik.png" alt="Batik AI" class="h-48 w-full object-cover">
-                    <div class="p-8 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-3 text-white">Batik Classification AI</h3>
-                        <p class="text-slate-400 text-sm mb-6 flex-grow leading-relaxed">Klasifikasi otomatis motif batik Indonesia menggunakan CNN.</p>
-                        <div class="flex flex-wrap gap-2 mb-6 text-[10px] font-bold">
-                            <span class="px-3 py-1 rounded bg-green-500/10 text-green-300 border border-green-500/20">PYTHON</span>
-                            <span class="px-3 py-1 rounded bg-orange-500/10 text-orange-300 border border-orange-500/20">CNN</span>
-                        </div>
-                        <a href="#" class="text-accent text-sm font-bold hover:underline">View Project <i class="fas fa-arrow-right ml-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="tech" class="min-h-screen pt-32 pb-20 px-6 flex flex-col items-center justify-center text-center fade-in-section py-20 px-6">
-        <div class="max-w-6xl w-full">
-            <h2 class="text-4xl font-bold mb-4">Tech <span class="text-accent">Stack</span></h2>
-            <p class="text-slate-400 mb-12">Teknologi yang saya gunakan untuk membangun solusi cerdas.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-card p-6 rounded-2xl border border-slate-800 hover:border-accent transition">
-                    <h3 class="font-bold mb-6 flex items-center gap-2 justify-center"><i class="fas fa-brain text-accent"></i> ML & Python</h3>
-                    <div class="flex justify-center gap-6">
-                        <div class="tech-icon relative"><i class="fab fa-python text-4xl"></i><span class="tech-tooltip">Python</span></div>
-                        <div class="tech-icon relative"><i class="fas fa-project-diagram text-4xl"></i><span class="tech-tooltip">TensorFlow</span></div>
-                    </div>
-                </div>
-                <div class="bg-card p-6 rounded-2xl border border-slate-800 hover:border-accent transition">
-                    <h3 class="font-bold mb-6 flex items-center gap-2 justify-center"><i class="fas fa-code text-accent"></i> Web Frameworks</h3>
-                    <div class="flex justify-center gap-6">
-                        <div class="tech-icon relative"><i class="fab fa-laravel text-4xl text-red-500"></i><span class="tech-tooltip">Laravel</span></div>
-                        <div class="tech-icon relative"><i class="fab fa-js text-4xl text-yellow-400"></i><span class="tech-tooltip">JavaScript</span></div>
-                    </div>
-                </div>
-                <div class="bg-card p-6 rounded-2xl border border-slate-800 hover:border-accent transition">
-                    <h3 class="font-bold mb-6 flex items-center gap-2 justify-center"><i class="fas fa-database text-accent"></i> Databases</h3>
-                    <div class="flex justify-center gap-6">
-                        <div class="tech-icon relative"><i class="fas fa-server text-4xl text-blue-400"></i><span class="tech-tooltip">MySQL</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certification" class="min-h-screen pt-32 pb-20 px-6 flex flex-col items-center justify-center fade-in-section py-20 px-6">
-        <h2 class="text-4xl font-bold mb-12">Certifications</h2>
-        <div class="max-w-4xl w-full space-y-4">
-            <div class="cert-card bg-card p-4 rounded-xl border border-slate-800 hover:bg-slate-800/30 transition flex items-center gap-6">
-                <i class="fas fa-certificate text-3xl text-yellow-500"></i>
-                <div class="text-left">
-                    <h4 class="font-bold">Machine Learning Specialization</h4>
-                    <p class="text-sm text-slate-400">Coursera - DeepLearning.AI</p>
-                </div>
-            </div>
-            <div class="cert-card bg-card p-4 rounded-xl border border-slate-800 hover:bg-slate-800/30 transition flex items-center gap-6">
-                <i class="fab fa-laravel text-3xl text-red-500"></i>
-                <div class="text-left">
-                    <h4 class="font-bold">Professional Backend Developer (Laravel)</h4>
-                    <p class="text-sm text-slate-400">Dicoding Indonesia</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact" class="min-h-screen py-20 px-6 flex flex-col items-center justify-center text-center bg-slate-900/50 relative overflow-hidden">
-        <div class="max-w-xl w-full relative z-10">
-            <h2 class="text-4xl font-bold mb-4 text-accent">Get in Touch</h2>
-            <p class="text-slate-400 mb-10">Have a project or question? Send me a message!</p>
-            
-            <form id="contactForm" class="space-y-4 mb-10">
-                <input type="text" name="name" id="userName" placeholder="Name" required 
-                    class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition">
-                <input type="email" name="email" id="userEmail" placeholder="Email" required 
-                    class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition">
-                <textarea name="message" id="userMessage" placeholder="Message" rows="5" required 
-                        class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition resize-none"></textarea>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <button type="submit" id="submitBtn" class="w-full bg-indigo-600 py-3 rounded-lg font-bold hover:bg-indigo-700 ripple-btn transition flex items-center justify-center gap-2">
+                <!-- Cards -->
+                <div x-show="filter === 'all' || filter === 'web'" @click="openModal('hastaraya')" class="project-card bg-card/40 rounded-2xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left cursor-pointer group">
+                    <img src="img/ban.jpg" alt="Hasta Raya Webcommerce" class="h-40 w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow relative z-10 bg-card/40">
+                        <h3 class="text-lg font-bold mb-2 text-white line-clamp-2">Web Profile PT. Hasta Raya Sumbar (Webcommerce)</h3>
+                        <p class="text-slate-400 text-sm mb-4 flex-grow leading-relaxed line-clamp-3">Platform web profil resmi dan e-commerce untuk Hasta Raya Sumbar.</p>
+                        <div class="flex flex-wrap gap-2 mb-4 text-[10px] font-bold uppercase">
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Company Profile</span>
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Webcommerce</span>
+                        </div>
+                        <button class="text-accent text-sm font-bold group-hover:underline text-left mt-auto flex items-center">View Details <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <div x-show="filter === 'all' || filter === 'web'" @click="openModal('hrtracker')" class="project-card bg-card/40 rounded-2xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left cursor-pointer group">
+                    <img src="img/EFO.jpeg" alt="HR Tracker" class="h-40 w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow relative z-10 bg-card/40">
+                        <h3 class="text-lg font-bold mb-2 text-white line-clamp-2">HR Tracker (Sales Monitor & Orders)</h3>
+                        <p class="text-slate-400 text-sm mb-4 flex-grow leading-relaxed line-clamp-3">Sistem manajemen orders dan sales tracking untuk Hasta Raya Sumbar.</p>
+                        <div class="flex flex-wrap gap-2 mb-4 text-[10px] font-bold uppercase">
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Tracking System</span>
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">WebApp</span>
+                        </div>
+                        <button class="text-accent text-sm font-bold group-hover:underline text-left mt-auto flex items-center">View Details <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <div x-show="filter === 'all' || filter === 'ai' || filter === 'web'" @click="openModal('padi')" class="project-card bg-card/40 rounded-2xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left cursor-pointer group">
+                    <img src="img/sawah.jpg" alt="Deteksi Padi" class="h-40 w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow relative z-10 bg-card/40">
+                        <h3 class="text-lg font-bold mb-2 text-white line-clamp-2">Sistem Informasi Deteksi Penyakit Padi LPHP BPTPH Sumatera Barat</h3>
+                        <p class="text-slate-400 text-sm mb-4 flex-grow leading-relaxed line-clamp-3">Sistem Informasi Deteksi Penyakit Padi yang dapat menghasilkan Laporan Peringatan Bahaya dan Rekomendasi Penanganan</p>
+                        <div class="flex flex-wrap gap-2 mb-4 text-[10px] font-bold uppercase">
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Thesis</span>
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">AI</span>
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Web</span>
+                        </div>
+                        <button class="text-accent text-sm font-bold group-hover:underline text-left mt-auto flex items-center">View Details <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <div x-show="filter === 'all' || filter === 'web'" @click="openModal('dti')" class="project-card bg-card/40 rounded-2xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left cursor-pointer group">
+                    <img src="img/DTI.png" alt="DTI Unand" class="h-40 w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow relative z-10 bg-card/40">
+                        <h3 class="text-lg font-bold mb-2 text-white line-clamp-2">Sistem Informasi Inventaris DTI Universitas Andalas</h3>
+                        <p class="text-slate-400 text-sm mb-4 flex-grow leading-relaxed line-clamp-3">Pencatatan inventaris di Direktorat Teknologi Informasi Universitas Andalas.</p>
+                        <div class="flex flex-wrap gap-2 mb-4 text-[10px] font-bold uppercase">
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Internship</span>
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Inventory Management</span>
+                        </div>
+                        <button class="text-accent text-sm font-bold group-hover:underline text-left mt-auto flex items-center">View Details <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <div x-show="filter === 'all' || filter === 'web'" @click="openModal('kkn')" class="project-card bg-card/40 rounded-2xl overflow-hidden border border-slate-800 hover:border-accent transition-all duration-300 flex flex-col h-full text-left cursor-pointer group">
+                    <img src="img/KKN.png" alt="KKN" class="h-40 w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="p-5 sm:p-6 flex flex-col flex-grow relative z-10 bg-card/40">
+                        <h3 class="text-lg font-bold mb-2 text-white line-clamp-2">Prototype Web KKN Situjuah Batua</h3>
+                        <p class="text-slate-400 text-sm mb-4 flex-grow leading-relaxed line-clamp-3">Platform informasi digital untuk Nagari Situjuah Batua untuk transparansi publik.</p>
+                        <div class="flex flex-wrap gap-2 mb-4 text-[10px] font-bold uppercase">
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">KKN</span>
+                            <span class="px-2 py-1 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20">Web Prototype</span>
+                        </div>
+                        <button class="text-accent text-sm font-bold group-hover:underline text-left mt-auto flex items-center">View Details <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <!-- GitHub Link -->
+                <a href="https://github.com/FathihAlfi" target="_blank" x-show="filter === 'all'" class="project-card bg-slate-800/20 rounded-2xl overflow-hidden border-2 border-dashed border-slate-700 hover:border-indigo-500 hover:bg-slate-800/40 transition-all duration-300 flex flex-col items-center justify-center h-full min-h-[200px] sm:min-h-[250px] text-center cursor-pointer group p-6">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-800 group-hover:bg-indigo-600 text-slate-400 group-hover:text-white flex items-center justify-center transition-all duration-300 mb-3 shadow-lg group-hover:shadow-indigo-500/30">
+                        <i class="fas fa-plus text-lg sm:text-xl"></i>
+                    </div>
+                    <h3 class="text-sm sm:text-base font-bold text-slate-300 group-hover:text-white transition-colors">Lihat Project Lainnya</h3>
+                    <p class="text-slate-500 text-xs mt-1">Kunjungi repository GitHub</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- MODAL TELEPORT -->
+        <template x-teleport="body">
+            <!-- Padding di overlay dikurangi jadi p-2 untuk mobile agar modal lebih lega -->
+            <div x-show="modalOpen" 
+                 style="display: none;" 
+                 class="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4 md:p-6" 
+                 style="background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);"
+                 x-transition.opacity.duration.300ms>
+                
+                <div @click.away="closeModal()" 
+                     class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto flex flex-col shadow-2xl relative"
+                     x-show="modalOpen"
+                     x-transition:enter="transition ease-out duration-300 delay-100"
+                     x-transition:enter-start="opacity-0 translate-y-8"
+                     x-transition:enter-end="opacity-100 translate-y-0">
+                    
+                    <!-- Tombol close disesuaikan sizenya di mobile -->
+                    <button @click="closeModal()" class="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 bg-slate-800/80 hover:bg-slate-700 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors">
+                        <i class="fas fa-times text-sm sm:text-base"></i>
+                    </button>
+
+                    <!-- Tinggi gambar dikurangi khusus untuk layar kecil (h-48) -->
+                    <div class="relative w-full h-48 sm:h-64 md:h-96 bg-slate-950 flex items-center justify-center overflow-hidden">
+                        <img :src="activeProject.images[currentImg]" class="max-w-full max-h-full object-contain" alt="Project Screenshot">
+                        
+                        <template x-if="activeProject.images && activeProject.images.length > 1">
+                            <div>
+                                <button @click.stop="prevImg()" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-slate-900/80 hover:bg-indigo-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors border border-slate-700">
+                                    <i class="fas fa-chevron-left text-sm sm:text-base"></i>
+                                </button>
+                                <button @click.stop="nextImg()" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-slate-900/80 hover:bg-indigo-600 text-white w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors border border-slate-700">
+                                    <i class="fas fa-chevron-right text-sm sm:text-base"></i>
+                                </button>
+                                
+                                <div class="absolute bottom-2 sm:bottom-4 left-0 right-0 flex justify-center gap-1.5 sm:gap-2">
+                                    <template x-for="(img, index) in activeProject.images" :key="index">
+                                        <div class="h-1.5 sm:h-2 rounded-full transition-all duration-300" :class="currentImg === index ? 'w-4 sm:w-6 bg-indigo-500' : 'w-1.5 sm:w-2 bg-slate-500/50'"></div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Padding konten modal disesuaikan untuk layar HP -->
+                    <div class="p-4 sm:p-6 md:p-8 text-left">
+                        <h3 x-text="activeProject.title" class="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4"></h3>
+                        <div class="h-px w-full bg-slate-800 mb-4 sm:mb-6"></div>
+                        
+                        <div class="mb-6 sm:mb-8">
+                            <h4 class="text-base sm:text-lg font-semibold text-slate-200 mb-2">Deskripsi</h4>
+                            <p x-text="activeProject.desc" class="text-sm sm:text-base text-slate-400 leading-relaxed"></p>
+                        </div>
+
+                        <a :href="activeProject.link" target="_blank" class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold rounded-lg transition-all shadow-lg shadow-indigo-500/20 active:scale-95">
+                            <i class="fas fa-external-link-alt text-lg"></i> View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </section>
+
+    <footer id="contact" class="min-h-screen py-16 sm:py-20 px-4 sm:px-6 flex flex-col items-center justify-center text-center bg-slate-900/50 relative overflow-hidden">
+        <div class="max-w-xl w-full relative z-10">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-3 sm:mb-4 text-accent">Get in Touch</h2>
+            <p class="text-slate-400 mb-8 sm:mb-10 text-sm sm:text-base">Have a project or question? Send me a message!</p>
+            
+            <form id="contactForm" class="space-y-4 mb-8 sm:mb-10">
+                <input type="text" name="name" id="userName" placeholder="Name" required class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition text-sm sm:text-base">
+                <input type="email" name="email" id="userEmail" placeholder="Email" required class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition text-sm sm:text-base">
+                <textarea name="message" id="userMessage" placeholder="Message" rows="5" required class="w-full p-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-accent outline-none transition resize-none text-sm sm:text-base"></textarea>
+                <button type="submit" id="submitBtn" class="w-full bg-indigo-600 py-3 rounded-lg font-bold hover:bg-indigo-700 ripple-btn transition flex items-center justify-center gap-2 text-sm sm:text-base">
                     <span>Send Message</span>
                 </button>
             </form>
 
-            <div id="successMsg" class="hidden bg-green-500/10 border border-green-500/50 text-green-400 p-4 rounded-lg mb-6">
+            <div id="successMsg" class="hidden bg-green-500/10 border border-green-500/50 text-green-400 p-4 rounded-lg mb-6 text-sm sm:text-base">
                 ✓ Message sent successfully! I'll get back to you soon.
             </div>
 
-            <div class="flex justify-center gap-6 flex-wrap text-accent">
-                <a href="mailto:fathihalfi@gmail.com" class="hover:text-white transition"><i class="fas fa-envelope mr-2"></i>Email</a>
-                <a href="https://github.com/FathihAlfi" target="_blank" class="hover:text-white transition"><i class="fab fa-github mr-2"></i>GitHub</a>
-                <a href="https://linkedin.com/in/fathih-muhammad-alfi" target="_blank" class="hover:text-white transition"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
+            <!-- Footer links dirapikan jaraknya untuk mobile -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 flex-wrap text-accent text-sm sm:text-base">
+                <a href="mailto:fathihalfi@gmail.com" class="hover:text-white transition flex items-center justify-center"><i class="fas fa-envelope mr-2"></i>Email</a>
+                <a href="berkas/CV_Fathih_Muhammad_Alfi.pdf" download="CV_Fathih_Muhammad_Alfi.pdf" class="hover:text-white transition flex items-center justify-center">
+                    <i class="fas fa-file-download mr-2"></i>Download CV
+                </a>
+                <a href="https://linkedin.com/in/fathih-muhammad-alfi" target="_blank" class="hover:text-white transition flex items-center justify-center"><i class="fab fa-linkedin mr-2"></i>LinkedIn</a>
             </div>
-            <p class="text-slate-500 text-sm mt-12">© 2026 Portfolio. Built with Tailwind CSS & Supabase.</p>
+            <p class="text-slate-500 text-xs sm:text-sm mt-10 sm:mt-12">© 2026 Portfolio. Built with Tailwind CSS & Supabase.</p>
         </div>
     </footer>
 
